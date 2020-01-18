@@ -51,4 +51,17 @@ router.put('/:id', validateAccUpdate, validateId(Accounts), (req, res) => {
         })
 })
 
+router.delete('/:id', validateId(Accounts), (req, res) => {
+    Accounts.remove(req.params.id)
+        .then(deleted => {
+            res.status(202).json(deleted)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: 'Error removing account.'
+            })
+        })
+})
+
 module.exports = router

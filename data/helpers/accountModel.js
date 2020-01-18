@@ -4,7 +4,8 @@ module.exports = {
     get,
     getById,
     insert,
-    update
+    update,
+    remove
 }
 
 function get() {
@@ -28,4 +29,10 @@ function update(queryId, queryBody) {
             name: queryBody.name,
             budget: queryBody.budget
         })
+}
+
+function remove(queryId) {
+    return db('accounts')
+        .where({ id: queryId })
+        .del()
 }
