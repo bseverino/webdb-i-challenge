@@ -7,6 +7,7 @@ function validateId(db) {
                     res.status(400).json({ message: 'Invalid id.' })
                 } else {
                     req.resource = resource
+                    response = resource
                     next()
                 }
             })

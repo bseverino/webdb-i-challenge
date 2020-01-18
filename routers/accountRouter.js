@@ -4,6 +4,7 @@ const Accounts = require('../data/helpers/accountModel.js')
 
 const validateId = require('../middleware/validateId.js')
 const validateAccount = require('../middleware/validateAccount.js')
+const validateAccUpdate = require('../middleware/validateAccUpdate.js')
 
 const router = express.Router()
 
@@ -21,16 +22,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', validateId(Accounts), (req, res) => {
-    Accounts.getById(req.params.id)
-        .then(acc => {
-            res.status(200).json(acc)
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({
-                message: 'Error retrieving account.'
-            })
-        })
+    res.status(200).json(response)
 })
 
 router.post('/', validateAccount, (req, res) => {
@@ -42,6 +34,19 @@ router.post('/', validateAccount, (req, res) => {
             console.log(err)
             res.status(500).json({
                 message: 'Error adding account.'
+            })
+        })
+})
+
+router.put('/:id', validateAccUpdate, validateId(Accounts), (req, res) => {
+    Accounts.update(req.params.id, req.body)
+        .then(acc => {
+            res.status(201).json(acc)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: 'Error updating account.'
             })
         })
 })

@@ -3,7 +3,8 @@ const db = require('../dbConfig.js')
 module.exports = {
     get,
     getById,
-    insert
+    insert,
+    update
 }
 
 function get() {
@@ -18,4 +19,13 @@ function getById(queryId) {
 function insert(queryBody) {
     return db('accounts')
         .insert(queryBody)
+}
+
+function update(queryId, queryBody) {
+    return db('accounts')
+        .where({ id: queryId })
+        .update({
+            name: queryBody.name,
+            budget: queryBody.budget
+        })
 }
