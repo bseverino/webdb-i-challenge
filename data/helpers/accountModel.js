@@ -12,27 +12,27 @@ function get() {
     return db('accounts')
 }
 
-function getById(queryId) {
+function getById(id) {
     return db('accounts')
-        .where({ id: queryId })
+        .where('id', id)
 }
 
-function insert(queryBody) {
+function insert(body) {
     return db('accounts')
-        .insert(queryBody)
+        .insert(body)
 }
 
-function update(queryId, queryBody) {
+function update(id, body) {
     return db('accounts')
-        .where({ id: queryId })
+        .where('id', id)
         .update({
-            name: queryBody.name,
-            budget: queryBody.budget
+            name: body.name,
+            budget: body.budget
         })
 }
 
-function remove(queryId) {
+function remove(id) {
     return db('accounts')
-        .where({ id: queryId })
+        .where('id', id)
         .del()
 }
